@@ -1,0 +1,30 @@
+
+-- Create db:
+CREATE DATABASE todo_db;
+
+-- Use db:
+USE todo_db;
+
+--Create a tables:
+CREATE TABLE users (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    birthday_date DATE NULL,
+    working VARCHAR(255) NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE tasks (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    title VARCHAR(255) NOT NULL,
+    description TEXT NULL,
+    status ENUM('nao_iniciada', 'em_progresso', 'concluida') NOT NULL DEFAULT 'nao_iniciada',
+    initial_date DATETIME NULL,
+    finished_date DATETIME NULL,
+    userId INT NOT NULL,
+    created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (userId) REFERENCES users(id) ON DELETE CASCADE
+);
